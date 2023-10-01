@@ -1,20 +1,23 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
     provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "postgres"
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Categories {
+    id    String  @id
+    name  String
+    Tasks Tasks[]
+}
 
-    @@index([name])
+model Tasks {
+    id            String     @id
+    creation_date DateTime   @default(now())
+    done          Boolean
+    description   String
+    category_id   String
+    Categories    Categories @relation(fields: [category_id], references: [id])
 }
