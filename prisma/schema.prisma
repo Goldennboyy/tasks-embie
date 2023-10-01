@@ -8,13 +8,13 @@ datasource db {
 }
 
 model Categories {
-    id    String  @id
+    id    String  @id @default(uuid())
     name  String
     Tasks Tasks[]
 }
 
 model Tasks {
-    id            String     @id
+    id            String     @id @default(uuid())
     creation_date DateTime   @default(now())
     done          Boolean
     description   String
